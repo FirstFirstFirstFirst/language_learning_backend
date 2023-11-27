@@ -5,14 +5,12 @@ module.exports = (app) => {
   const router = express.Router();
   router.get(
     "/user/:user_id",
-    authJwt,
     certificate_controller.getCertificatesForUser
   );
   router.post("/create", authJwt, certificate_controller.createCertificate);
 
   router.delete(
     "/:certificate_id",
-    authJwt,
     certificate_controller.deleteCertificate
   );
   router.put(
