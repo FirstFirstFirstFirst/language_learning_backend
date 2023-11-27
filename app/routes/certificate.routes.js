@@ -7,7 +7,7 @@ module.exports = (app) => {
     "/user/:user_id",
     certificate_controller.getCertificatesForUser
   );
-  router.post("/create", authJwt, certificate_controller.createCertificate);
+  router.post("/create", certificate_controller.createCertificate);
 
   router.delete(
     "/:certificate_id",
@@ -15,7 +15,6 @@ module.exports = (app) => {
   );
   router.put(
     "/:certificate_id",
-    authJwt,
     certificate_controller.updateCertificate
   );
   app.use("/api/certificate", router);

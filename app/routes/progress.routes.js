@@ -7,7 +7,6 @@ module.exports = (app) => {
   router.post("/create", authJwt, progress_controller.createProgress);
   router.get(
     "/:userId/:courseId",
-    authJwt,
     progress_controller.getCourseProgress
   );
   router.post("/update", authJwt, progress_controller.updateProgress);
