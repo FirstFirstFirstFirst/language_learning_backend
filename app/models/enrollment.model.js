@@ -33,7 +33,20 @@ Enrollment.create = (user_id, course_id, result) => {
 
 Enrollment.getEnrollmentsForUser = (user_id, result) => {
   sql.query(
-    "SELECT * FROM course_enrollment WHERE user_id = ?",
+    "SELECT " +
+      "E.enrollment_id, E.user_id, E.course_id, E.enrollment_date, " +
+      "C.title AS course_title, C.description AS course_description, " +
+      "C.pricing AS course_pricing, C.language AS course_language, " +
+      "C.proficiency_level AS course_proficiency_level, " +
+      "I.instructor_id, I.instructor_name, " +
+      "L.title AS lesson_title, L.content AS lesson_content, " +
+      "CP.* " + 
+      "FROM course_enrollment E " +
+      "JOIN course C ON E.course_id = C.course_id " +
+      "LEFT JOIN lesson L ON E.course_id = L.course_id " +
+      "LEFT JOIN instructor I ON C.instructor_id = I.instructor_id " +
+      "LEFT JOIN course_progress CP ON E.user_id = CP.user_id AND E.course_id = CP.course_id " +
+      "WHERE E.user_id = ?",
     [user_id],
     (err, res) => {
       if (err) {
